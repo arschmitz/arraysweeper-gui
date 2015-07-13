@@ -1,0 +1,8 @@
+{
+	"name": "minesweeper",
+	"dependencies": {
+		"jquery": ">=1.8",
+		"handlebars": "3.0.3",
+		"flexboxgrid": "6.2.0"
+	}
+}

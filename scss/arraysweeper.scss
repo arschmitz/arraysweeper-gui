@@ -1,0 +1,201 @@
+.white-shadow-font {
+	font-family: sans-serif;
+	text-shadow: 1px 1px 1px #333;
+	color: #fff;
+}
+.white-half-border {
+	border-left: 1px white solid;
+	border-top: 1px white solid;
+	background: #ccc;
+}
+.as-mine {
+	position: relative;
+	padding: 1em;
+	font-family: sans-serif;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+	* {
+		box-sizing: border-box;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	}
+
+	/* Styles for the Game board */
+	.as-board-wrap {
+		position: relative;
+		margin-top: 2em;
+	}
+
+	.as-gameboard {
+		background: white;
+		width: 100%;
+		box-shadow: 4px 4px 7px #888;
+	}
+
+	.row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	/* Styles for various game spaces and their various states */
+	.as-game-space {
+		padding: 0;
+		border-left: 1px white solid;
+		border-top: 1px white solid;
+		-webkit-user-select: none;
+	}
+
+	.as-game-space,
+	.flag {
+		background: #ccc;
+	}
+
+	.as-game-space:hover,
+	.as-settings:hover,
+	.as-reset:hover,
+	.as-help:hover {
+		background: rgb( 0, 127, 255 );
+		box-shadow: 3px 3px 3px #333;
+		z-index: 99;
+	}
+	.flag:after {
+		content: "\26f3";
+		position: absolute;
+		top: 50%;
+		margin-top: -8px;
+		height: 16px;
+		line-height: 16px;
+		width: 100%;
+		text-align: center;
+	}
+	.flag {
+		position: relative;
+	}
+	.as-content {
+		width: 100%;
+		text-align: center;
+		top: 50%;
+		height: 16px;
+		line-height: 16px;
+		position: relative;
+		margin-top: -8px;
+		visibility: hidden;
+	}
+
+	.revealed {
+		background: #fff;
+
+		.as-content {
+			visibility: visible;
+		}
+	}
+
+	/* Toolbar and settings bar and help */
+	.as-toolbar,
+	.as-settings-panel,
+	.as-help-panel {
+		width: 100%;
+		margin-bottom: 1em;
+		height: 3em;
+		box-shadow: 4px 4px 7px #888;
+		@extend .white-half-border;
+	}
+	.as-help-panel-hidden,
+	.as-settings-panel-hidden {
+		display: none;
+	}
+	.as-help-panel {
+		height: auto;
+		@extend .white-shadow-font;
+		.as-help-title {
+			margin-left: 1em;
+		}
+	}
+	.as-help-list {
+		width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+		list-style-position: inside;
+		list-style: none;
+
+
+
+		li {
+			padding-left: 1em;
+			border-top: 1px solid #fff;
+		}
+	}
+	/* Toolbar controls */
+	.as-reset,
+	.as-settings,
+	.as-help {
+		font-size: 1em;
+		border-left: 1px solid white;
+		line-height: 3em;
+		text-align: center;
+		padding: 0;
+		@extend .white-shadow-font;
+	}
+	.as-settings {
+		font-size: 1.5em;
+		line-height: 2em;
+	}
+
+	.as-remaining {
+		line-height: 2em;
+		font-size: 1.2em;
+		@extend .white-shadow-font;
+	}
+
+	/* Settings inputs */
+
+	label {
+		color: white;
+		font-family: sans-serif;
+		line-height: .9em;
+		font-size: .8em;
+		@extend .white-shadow-font;
+	}
+	input {
+		font-size: 1em;
+		width: 80%;
+		color: #ccc;
+	}
+	input:focus {
+		color: #000;
+	}
+
+	/* Success and failure overlay */
+	.as-screen.as-success,
+	.as-screen.as-failure {
+		background: rgba( 0, 0, 0, .6 );
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		margin-top: -1em;
+		margin-bottom: -1em;
+		padding: 1em;
+		text-align: center;
+	}
+
+	.as-screen.as-success:after,
+	.as-screen.as-failure:after {
+		content: "Congratulations you win!";
+		color: white;
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		margin-left: 0;
+		left: 0;
+		margin-top: -1.5em;
+		font-size: 3em;
+		text-align: center;
+	}
+
+	.as-screen.as-failure:after {
+		content: "Sorry try again!";
+	}
+}

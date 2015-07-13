@@ -1,0 +1,51 @@
+{
+  "name": "arrayswpeeper-gui",
+  "description": "",
+  "version": "0.0.2",
+  "author": {
+    "name": "Alex Schmitz",
+    "url": "AUTHORS.txt"
+  },
+  "homepage": "https://github.com/arschmitz/arraysweeper-gui",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/arschmitz/arraysweeper-gui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arschmitz/arraysweeper-gui/issues"
+  },
+  "license": {
+    "name": "MIT",
+    "url": "http://www.opensource.org/licenses/mit-license.php"
+  },
+  "keywords": [
+    "array",
+    "sweeper",
+    "mine",
+    "sweeper",
+    "board",
+    "game"
+  ],
+  "dependencies": {
+    "arraysweeper": "0.0.6"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.3",
+    "grunt-bowercopy": "1.1.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-csslint": "0.4.0",
+    "grunt-contrib-cssmin": "0.12.3",
+    "grunt-contrib-concat": "0.5.1",
+    "grunt-contrib-copy": "0.8.0",
+    "grunt-contrib-clean": "0.6.0",
+    "grunt-contrib-handlebars": "0.10.2",
+    "grunt-contrib-uglify": "0.9.1",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-csscomb": "3.0.0",
+    "grunt-jscs": "1.8.0",
+    "grunt-jsdox": "0.1.7",
+    "grunt-sass": "1.0.0",
+    "pepjs": "0.3.0",
+    "load-grunt-config": "0.16.0"
+  }
+}
