@@ -4,6 +4,7 @@
 		/**
 		* A module for creating an GUI based on the arraysweeper module.
 		* (https://www.npmjs.com/package/arraysweeper)[https://www.npmjs.com/package/arraysweeper]
+		* (https://github.com/arschmitz/arraysweeper)[https://github.com/arschmitz/arraysweeper]
 		* @module $.arraysweeper
 		*/
 		define( [ "jquery", "handlebars", "node_modules/arraysweeper/index.js" ], factory );
