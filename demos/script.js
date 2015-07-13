@@ -10170,9 +10170,10 @@ var arraysweeper = {
 			return "Game Over!";
 		} else if ( space.bomb ) {
 			this._buildBoard();
-		} else if ( this.count.flags + this.count.hidden === this.count.mines ) {
+		} else if ( this.count.flags + this.count.hidden === this.count.mines + 1 ) {
 			returnValue = "You Win!";
 		}
+
 		this.count.moves++;
 		revealValue = this._reveal( row, col );
 		return returnValue || revealValue;
@@ -11634,6 +11635,7 @@ return Arraysweeper;
 		/**
 		* A module for creating an GUI based on the arraysweeper module.
 		* (https://www.npmjs.com/package/arraysweeper)[https://www.npmjs.com/package/arraysweeper]
+		* (https://github.com/arschmitz/arraysweeper)[https://github.com/arschmitz/arraysweeper]
 		* @module $.arraysweeper
 		*/
 		define( [ "jquery", "handlebars", "node_modules/arraysweeper/index.js" ], factory );

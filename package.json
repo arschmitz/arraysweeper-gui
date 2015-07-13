@@ -27,7 +27,7 @@
     "game"
   ],
   "dependencies": {
-    "arraysweeper": "0.0.7"
+    "arraysweeper": "0.0.8"
   },
   "devDependencies": {
     "grunt": "~0.4.3",
