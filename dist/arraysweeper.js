@@ -1792,5 +1792,5 @@ this["$"]["arraysweeper"]["prototype"]["templates"]["game"] = Handlebars.templat
     + ((stack1 = this.invokePartial(partials.toolbar,depth0,{"name":"toolbar","data":data,"indent":"\t\t","helpers":helpers,"partials":partials})) != null ? stack1 : "")
     + ((stack1 = this.invokePartial(partials.settings,depth0,{"name":"settings","data":data,"indent":"\t\t","helpers":helpers,"partials":partials})) != null ? stack1 : "")
     + ((stack1 = this.invokePartial(partials.help,depth0,{"name":"help","data":data,"indent":"\t\t","helpers":helpers,"partials":partials})) != null ? stack1 : "")
-    + "	</div>\n	<div class=\"board-wrap\">\n		<div class=\"as-gameboard\">\n\n		</div>\n		<div class=\"as-screen\">\n\n		</div>\n	</div>\n</div>";
+    + "	</div>\n	<div class=\"as-board-wrap\">\n		<div class=\"as-gameboard\">\n\n		</div>\n		<div class=\"as-screen\">\n\n		</div>\n	</div>\n</div>";
 },"usePartial":true,"useData":true});
