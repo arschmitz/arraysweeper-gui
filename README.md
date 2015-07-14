@@ -1,8 +1,8 @@
 # arraysweeper
 
 A module for creating an GUI based on the arraysweeper module.
-(https://www.npmjs.com/package/arraysweeper)[https://www.npmjs.com/package/arraysweeper]
-(https://github.com/arschmitz/arraysweeper)[https://github.com/arschmitz/arraysweeper]
+[https://www.npmjs.com/package/arraysweeper](https://www.npmjs.com/package/arraysweeper)
+([https://github.com/arschmitz/arraysweeper]https://github.com/arschmitz/arraysweeper)
 
 
 
@@ -12,8 +12,8 @@ A module for creating an GUI based on the arraysweeper module.
 $.arraysweeper(element, height, width, count) 
 
 A module for creating an GUI based on the arraysweeper module.
-(https://www.npmjs.com/package/arraysweeper)[https://www.npmjs.com/package/arraysweeper]
-(https://github.com/arschmitz/arraysweeper)[https://github.com/arschmitz/arraysweeper]
+[https://www.npmjs.com/package/arraysweeper](https://www.npmjs.com/package/arraysweeper)
+([https://github.com/arschmitz/arraysweeper]https://github.com/arschmitz/arraysweeper)
 
 **Parameters**
 

@@ -150,8 +150,11 @@ $.extend( $.arraysweeper.prototype, {
 			this.toolbar.remaining.html( this.board.count.mines - this.board.count.flags );
 		},
 		flag: function( e ) {
-			if ( e.which !== 3 && new Date().getTime() - this.pointerTime < this.flagTime ) {
-				return;
+			if ( e.which !== 3 ) {
+				if ( !this.pointerTime ||
+						new Date().getTime() - this.pointerTime <= this.flagTime ) {
+					return;
+				}
 			}
 			e.preventDefault();
 			var cords = e.target.getAttribute( "data-as-location" ).split( "," );
@@ -167,7 +170,6 @@ $.extend( $.arraysweeper.prototype, {
 			e.preventDefault();
 		},
 		refresh: function() {
-			console.log( "refresh" );
 			this.refresh();
 		},
 		settings: function() {
@@ -185,7 +187,7 @@ $.extend( $.arraysweeper.prototype, {
 		this._on( "click", ".as-help", "help" );
 		this._on( "click", ".as-game-space:not( .revealed )", "reveal" );
 		this._on( "pointerup", ".as-game-space:not( .revealed )", "flag" );
-		this._on( "touchstart pointerdown", ".as-game-space:not( .revealed )", "recordPointer" );
+		this._on( "pointerdown", ".as-game-space:not( .revealed )", "recordPointer" );
 		this._on( "contextmenu", ".as-game-space:not( .revealed )", "prevent" );
 		$( window ).on( "resize", function() {
 			that.setHeight.apply( that, arguments );

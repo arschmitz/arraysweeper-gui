@@ -4,7 +4,7 @@ this["$"]["arraysweeper"]["prototype"] = this["$"]["arraysweeper"]["prototype"] 
 this["$"]["arraysweeper"]["prototype"]["templates"] = this["$"]["arraysweeper"]["prototype"]["templates"] || {};
 
 Handlebars.registerPartial("help", Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<div class=\"row as-help-panel as-help-panel-hidden\">\n	<h3 class=\"as-help-title\">Help and Instructions</h3>\n	<ul class=\"as-help-list\">\n		<li><p>Click on a space to reveal it</p></li>\n		<li><p>Right Click or Hold Down on a space for more then .5 seconds to flag or unflag a space</p></li>\n		<li><p>The number on a space indicates the number of mines which it touches</p></li>\n		<li><p>If any space you reveal touchs a space which has a count of 0 it will also be revealed</p></li>\n		<li><p>Click Reset / &#x27f3 at any time to reset the game</p></li>\n		<li><p>Click settings / &#x2699 to toggle the board settings panel</p></li>\n		<li><p>Click reset after adjust settings to make them take effect</p></li>\n	</ul>\n</div>";
+    return "<div class=\"row as-help-panel as-help-panel-hidden\">\n	<h3 class=\"as-help-title\">Help and Instructions</h3>\n	<ul class=\"as-help-list\">\n		<li><p>Click on a space to reveal it</p></li>\n		<li><p><cmd>Right Click</cmd> or on a touch screen <cmd>Press</cmd> on a space for more then .5 seconds to flag or unflag a space</p></li>\n		<li><p>The number on a space indicates the number of mines which it touches</p></li>\n		<li><p>If any space you reveal touchs a space which has a count of 0 it will also be revealed</p></li>\n		<li><p>Click Reset / &#x27f3 at any time to reset the game</p></li>\n		<li><p>Click settings / &#x2699 to toggle the board settings panel</p></li>\n		<li><p>Click reset after adjust settings to make them take effect</p></li>\n	</ul>\n</div>";
 },"useData":true}));
 
 Handlebars.registerPartial("settings", Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -24,7 +24,7 @@ this["$"]["arraysweeper"]["prototype"]["templates"]["board"] = Handlebars.templa
 },"2":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=this.escapeExpression, alias2=helpers.helperMissing, alias3="function";
 
-  return "				<div toush-action=\"auto\" tabindex=\"-1\" data-as-location=\""
+  return "				<div touch-action=\"none\" tabindex=\"-1\" data-as-location=\""
     + alias1(this.lambda((this.data(data, 1) && this.data(data, 1).index), depth0))
     + ","
     + alias1(((helper = (helper = helpers.index || (data && data.index)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(depth0,{"name":"index","hash":{},"data":data}) : helper)))

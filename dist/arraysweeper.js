@@ -75,6 +75,7 @@ var arraysweeper = {
 		var space = this._board[ row ][ col ];
 
 		if ( space.bomb && this.count.moves !== 0 ) {
+			this._revealAll();
 			return "Game Over!";
 		} else if ( space.bomb ) {
 			this._buildBoard();
@@ -104,6 +105,14 @@ var arraysweeper = {
 	*/
 	getBoard: function() {
 		return this._board;
+	},
+
+	_revealAll: function() {
+		for ( var r = 0; r < this.height; r++ ) {
+			for ( var c = 0; c < this.width; c++ ) {
+				this._board[ r ][ c ].state = "revealed";
+			}
+		}
 	},
 
 	_renderMap: function( space ) {
@@ -149,7 +158,7 @@ var arraysweeper = {
 						this._board[ r ][ c ].state !== "revealed" &&
 						!this._board[ r ][ c ].bomb &&
 						pending.indexOf( r + "," + c ) === -1 &&
-						( r !== row || c!== col ) ) {
+						( r !== row || c !== col ) ) {
 					this._board[ r ][ c ].state = "";
 					pending.push( r + "," + c );
 				}
@@ -1542,8 +1551,8 @@ return Arraysweeper;
 	if ( typeof define === "function" && define.amd ) {
 		/**
 		* A module for creating an GUI based on the arraysweeper module.
-		* (https://www.npmjs.com/package/arraysweeper)[https://www.npmjs.com/package/arraysweeper]
-		* (https://github.com/arschmitz/arraysweeper)[https://github.com/arschmitz/arraysweeper]
+		* [https://www.npmjs.com/package/arraysweeper](https://www.npmjs.com/package/arraysweeper)
+		* ([https://github.com/arschmitz/arraysweeper]https://github.com/arschmitz/arraysweeper)
 		* @module $.arraysweeper
 		*/
 		define( [ "jquery", "handlebars", "node_modules/arraysweeper/index.js" ], factory );
@@ -1689,8 +1698,11 @@ $.extend( $.arraysweeper.prototype, {
 			this.toolbar.remaining.html( this.board.count.mines - this.board.count.flags );
 		},
 		flag: function( e ) {
-			if ( e.which !== 3 && new Date().getTime() - this.pointerTime < this.flagTime ) {
-				return;
+			if ( e.which !== 3 ) {
+				if ( !this.pointerTime ||
+						new Date().getTime() - this.pointerTime <= this.flagTime ) {
+					return;
+				}
 			}
 			e.preventDefault();
 			var cords = e.target.getAttribute( "data-as-location" ).split( "," );
@@ -1706,7 +1718,6 @@ $.extend( $.arraysweeper.prototype, {
 			e.preventDefault();
 		},
 		refresh: function() {
-			console.log( "refresh" );
 			this.refresh();
 		},
 		settings: function() {
@@ -1724,7 +1735,7 @@ $.extend( $.arraysweeper.prototype, {
 		this._on( "click", ".as-help", "help" );
 		this._on( "click", ".as-game-space:not( .revealed )", "reveal" );
 		this._on( "pointerup", ".as-game-space:not( .revealed )", "flag" );
-		this._on( "touchstart pointerdown", ".as-game-space:not( .revealed )", "recordPointer" );
+		this._on( "pointerdown", ".as-game-space:not( .revealed )", "recordPointer" );
 		this._on( "contextmenu", ".as-game-space:not( .revealed )", "prevent" );
 		$( window ).on( "resize", function() {
 			that.setHeight.apply( that, arguments );
@@ -1736,13 +1747,62 @@ return $.fn.arraysweeper;
 
 } ) );
 
+// HammerTime Expiramental Fast Click designed for the Hammer.js project
+// Based on polyfilling touch-action none
+( function() {
+
+// Fastclick
+// We need to save the last touch start in iOS 8 if it is more then 150ms
+// it will trigger native fast click which cant ne stoped with return false
+var lastStart;
+var iOS = ( navigator.userAgent.match( /(iPad|iPhone|iPod)/g ) ? true : false );
+var gl = ( function() {
+	try {
+		var canvas = document.createElement( "canvas" );
+		return !!( window.WebGLRenderingContext && ( canvas.getContext( "webgl" ) ||
+			canvas.getContext( "experimental-webgl" ) ) );
+	} catch ( e ) {
+		return false;
+	} } )();
+var timeTouch = gl && iOS;
+
+var touchHandler = function( e ) {
+
+	// Check both if we should trigger fast click and the
+	// time to avoid a double trigger with native fast click
+	// This logic could be improved this is just a POC
+	if (  e.target.getAttribute( "touch-action" ) === "none" &&
+			( !timeTouch || Date.now() - lastStart < 150 ) ) {
+		if ( e.type === "touchend" ) {
+			var event = new MouseEvent( "click", {
+				"view": window,
+				"bubbles": true,
+				"cancelable": true
+			} );
+						e.target.dispatchEvent( event );
+		}
+		e.preventDefault();
+	}
+};
+document.addEventListener( "touchend", touchHandler, true );
+document.addEventListener( "mouseup", touchHandler, true );
+if ( timeTouch ) {
+	document.addEventListener( "touchstart", function( e ) {
+	if ( e.target.getAttribute( "touch-action" ) === "none" ) {
+		lastStart = Date.now();
+		}
+	} );
+}
+
+} )();
+
 this["$"] = this["$"] || {};
 this["$"]["arraysweeper"] = this["$"]["arraysweeper"] || {};
 this["$"]["arraysweeper"]["prototype"] = this["$"]["arraysweeper"]["prototype"] || {};
 this["$"]["arraysweeper"]["prototype"]["templates"] = this["$"]["arraysweeper"]["prototype"]["templates"] || {};
 
 Handlebars.registerPartial("help", Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<div class=\"row as-help-panel as-help-panel-hidden\">\n	<h3 class=\"as-help-title\">Help and Instructions</h3>\n	<ul class=\"as-help-list\">\n		<li><p>Click on a space to reveal it</p></li>\n		<li><p>Right Click or Hold Down on a space for more then .5 seconds to flag or unflag a space</p></li>\n		<li><p>The number on a space indicates the number of mines which it touches</p></li>\n		<li><p>If any space you reveal touchs a space which has a count of 0 it will also be revealed</p></li>\n		<li><p>Click Reset / &#x27f3 at any time to reset the game</p></li>\n		<li><p>Click settings / &#x2699 to toggle the board settings panel</p></li>\n		<li><p>Click reset after adjust settings to make them take effect</p></li>\n	</ul>\n</div>";
+    return "<div class=\"row as-help-panel as-help-panel-hidden\">\n	<h3 class=\"as-help-title\">Help and Instructions</h3>\n	<ul class=\"as-help-list\">\n		<li><p>Click on a space to reveal it</p></li>\n		<li><p><cmd>Right Click</cmd> or on a touch screen <cmd>Press</cmd> on a space for more then .5 seconds to flag or unflag a space</p></li>\n		<li><p>The number on a space indicates the number of mines which it touches</p></li>\n		<li><p>If any space you reveal touchs a space which has a count of 0 it will also be revealed</p></li>\n		<li><p>Click Reset / &#x27f3 at any time to reset the game</p></li>\n		<li><p>Click settings / &#x2699 to toggle the board settings panel</p></li>\n		<li><p>Click reset after adjust settings to make them take effect</p></li>\n	</ul>\n</div>";
 },"useData":true}));
 
 Handlebars.registerPartial("settings", Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1762,7 +1822,7 @@ this["$"]["arraysweeper"]["prototype"]["templates"]["board"] = Handlebars.templa
 },"2":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=this.escapeExpression, alias2=helpers.helperMissing, alias3="function";
 
-  return "				<div toush-action=\"auto\" tabindex=\"-1\" data-as-location=\""
+  return "				<div touch-action=\"none\" tabindex=\"-1\" data-as-location=\""
     + alias1(this.lambda((this.data(data, 1) && this.data(data, 1).index), depth0))
     + ","
     + alias1(((helper = (helper = helpers.index || (data && data.index)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(depth0,{"name":"index","hash":{},"data":data}) : helper)))
